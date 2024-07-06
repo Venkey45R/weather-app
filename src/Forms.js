@@ -32,8 +32,10 @@ function Forms() {
   };
 
   const fetchWeather = async (lat, lng) => {
+    const apiKey = '8f31d87d96fa438ab942c7d45ae884ab';
+    const url = `https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lng}&key=${apiKey}&include=minutely`;
     try {
-      const response = await axios.get(`https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lng}&key=3b1b3ca829164c39a86262895bdd150d&include=minutely`);
+      const response = await axios.get(url);
       console.log(response);
       if (response.data && response.data.data && response.data.data.length > 0) {
         const temperature = response.data.data[0].temp;
@@ -46,7 +48,7 @@ function Forms() {
       }
     } catch (err) {
       console.error('Error fetching weather data:', err);
-      alert('Error fetching weather data. Check console for details.');
+      alert('Something went wrong');
     }
   };
 
@@ -57,10 +59,10 @@ function Forms() {
   return (
     <div className='block'>
       <div className='flex justify-center py-4 md:py-10'>
-        <form className='rounded-xl bg-black px-8 py-4 mx-2'>
-          <div className=' flex'>
-            <input type='text' placeholder='Enter your city' value={locations} onChange={(e) => setLocations(e.target.value)} className='w-full pr-40 pl-2 py-2 my-2 rounded-xl bg-black border-4 text-white border-violet-600'/>
-            <button type="button" onClick={handleSubmit} className='my-4 bg-violet-600 px-5 py-2 text-white font-bold -ml-28 rounded-xl'>Submit</button>
+        <form className='px-8 py-4 mx-2 bg-black rounded-xl'>
+          <div className='flex '>
+            <input type='text' placeholder='Enter your city' value={locations} onChange={(e) => setLocations(e.target.value)} className='w-full py-2 pl-2 pr-40 my-2 text-white bg-black border-4 rounded-xl border-violet-600'/>
+            <button type="button" onClick={handleSubmit} className='px-5 py-2 my-4 font-bold text-white bg-violet-600 -ml-28 rounded-xl'>Submit</button>
           </div>
         </form>
       </div>
